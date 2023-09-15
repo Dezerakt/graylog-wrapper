@@ -8,33 +8,34 @@ import (
 	"net/http"
 )
 
-type GraylogConfig struct {
-	address string
-	Message string      `json:"message"`
-	Host    string      `json:"host"`
-	Body    interface{} `json:"body"`
+var graylogObject graylogConfig
+
+type graylogConfig struct {
+	address    string
+	Message    string      `json:"message"`
+	Host       string      `json:"host"`
+	MethodName string      `json:"method_name"`
+	Body       interface{} `json:"body"`
 }
 
-func Init(address string) *GraylogConfig {
-	return &GraylogConfig{
+func Init(address string) {
+	graylogObject = graylogConfig{
 		address: address,
 		Message: "empty",
 		Host:    "localhost",
 	}
 }
 
-func (g *GraylogConfig) WriteLog(body interface{}, shortMessage string) {
-	g.Body = body
-	if shortMessage != "" {
-		g.Message = shortMessage
-	}
+func WriteLog(methodName string, body interface{}) {
+	graylogObject.Body = body
+	graylogObject.MethodName = methodName
 
-	marshalledMessage, err := json.Marshal(g)
+	marshalledMessage, err := json.Marshal(graylogObject)
 	if err != nil {
 		log.Println(color.RedString(err.Error()))
 	}
 
-	request, err := http.NewRequest(http.MethodPost, g.address, bytes.NewBuffer(marshalledMessage))
+	request, err := http.NewRequest(http.MethodPost, graylogObject.address, bytes.NewBuffer(marshalledMessage))
 	if err != nil {
 		log.Println(color.RedString(err.Error()))
 	}
@@ -44,5 +45,4 @@ func (g *GraylogConfig) WriteLog(body interface{}, shortMessage string) {
 	if err != nil {
 		log.Println(color.RedString(err.Error()))
 	}
-
 }
