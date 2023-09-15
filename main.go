@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"github.com/fatih/color"
+	"github.com/gookit/goutil/dump"
 	"log"
 	"net/http"
 )
@@ -30,6 +31,7 @@ func (g *GraylogConfig) WriteLog(body interface{}, shortMessage string) {
 	}
 
 	marshalledMessage, err := json.Marshal(g)
+	dump.P(marshalledMessage)
 	if err != nil {
 		log.Println(color.RedString(err.Error()))
 	}
