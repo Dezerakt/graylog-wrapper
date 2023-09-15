@@ -4,34 +4,32 @@ import (
 	"bytes"
 	"encoding/json"
 	"github.com/fatih/color"
-	"github.com/gookit/goutil/dump"
 	"log"
 	"net/http"
 )
 
 type GraylogConfig struct {
 	address string
-	message string
-	host    string
-	body    interface{}
+	Message string      `json:"message"`
+	Host    string      `json:"host"`
+	Body    interface{} `json:"body"`
 }
 
 func Init(address string) *GraylogConfig {
 	return &GraylogConfig{
 		address: address,
-		message: "empty",
-		host:    "localhost",
+		Message: "empty",
+		Host:    "localhost",
 	}
 }
 
 func (g *GraylogConfig) WriteLog(body interface{}, shortMessage string) {
-	g.body = body
+	g.Body = body
 	if shortMessage != "" {
-		g.message = shortMessage
+		g.Message = shortMessage
 	}
 
 	marshalledMessage, err := json.Marshal(g)
-	dump.P(marshalledMessage)
 	if err != nil {
 		log.Println(color.RedString(err.Error()))
 	}
