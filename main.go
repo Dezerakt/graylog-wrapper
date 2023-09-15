@@ -1,4 +1,4 @@
-package graylog_wrapper
+package graylog_wrapper_golang
 
 import "log"
 
