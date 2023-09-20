@@ -47,5 +47,9 @@ func WriteLog(methodName string, body interface{}, stage string) int {
 		log.Println(color.RedString(err.Error()))
 	}
 
-	return response.StatusCode
+	if response != nil {
+		return response.StatusCode
+	} else {
+		return 500
+	}
 }
