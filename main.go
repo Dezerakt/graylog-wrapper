@@ -32,6 +32,7 @@ func WriteLog(methodName string, body interface{}, stage string) int {
 
 	marshalledMessage, err := json.Marshal(graylogObject)
 	if err != nil {
+
 		log.Println(color.RedString(err.Error()))
 	}
 
