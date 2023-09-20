@@ -21,16 +21,12 @@ type graylogConfig struct {
 func Init(address string) {
 	graylogObject = graylogConfig{
 		address: address,
-		Message: "start",
 		Host:    "localhost",
 	}
 }
 
-func WriteLog(methodName string, body interface{}, stage bool) {
-	if !stage {
-		graylogObject.Message = "end"
-	}
-
+func WriteLog(methodName string, body interface{}, stage string) {
+	graylogObject.Message = stage
 	graylogObject.Body = body
 	graylogObject.MethodName = methodName
 
