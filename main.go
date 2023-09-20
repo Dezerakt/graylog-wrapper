@@ -25,7 +25,7 @@ func Init(address string) {
 	}
 }
 
-func WriteLog(methodName string, body interface{}, stage string) {
+func WriteLog(methodName string, body interface{}, stage string) int {
 	graylogObject.Message = stage
 	graylogObject.Body = body
 	graylogObject.MethodName = methodName
@@ -41,8 +41,10 @@ func WriteLog(methodName string, body interface{}, stage string) {
 	}
 
 	client := &http.Client{}
-	_, err = client.Do(request)
+	response, err := client.Do(request)
 	if err != nil {
 		log.Println(color.RedString(err.Error()))
 	}
+
+	return response.StatusCode
 }
