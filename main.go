@@ -11,13 +11,13 @@ import (
 var graylogObject graylogConfig
 
 type graylogConfig struct {
-	address    string
-	Message    string      `json:"message"`
-	Host       string      `json:"host"`
-	MethodName string      `json:"method_name"`
-	Body       interface{} `json:"body"`
-	GlobalId   interface{} `json:"global_id"`
-	PartnerId  uint        `json:"partner_id"`
+	address     string
+	Message     string      `json:"message"`
+	Host        string      `json:"host"`
+	MethodName  string      `json:"method_name"`
+	Body        interface{} `json:"body"`
+	SessionUUID string      `json:"session_uuid"`
+	PartnerId   uint        `json:"partner_id"`
 }
 
 func Init(address string) {
@@ -31,8 +31,8 @@ func SetPartnerId(partnerId uint) {
 	graylogObject.PartnerId = partnerId
 }
 
-func SetGlobalId(globalId interface{}) {
-	graylogObject.GlobalId = globalId
+func SetSessionUUID(sessionUUID string) {
+	graylogObject.SessionUUID = sessionUUID
 }
 
 func WriteLog(methodName string, body interface{}, stage string) int {
