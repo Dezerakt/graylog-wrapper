@@ -16,7 +16,7 @@ type graylogConfig struct {
 	Host       string      `json:"host"`
 	MethodName string      `json:"method_name"`
 	Body       interface{} `json:"body"`
-	GlobalId   string      `json:"global_id"`
+	GlobalId   interface{} `json:"global_id"`
 	PartnerId  uint        `json:"partner_id"`
 }
 
@@ -31,7 +31,7 @@ func SetPartnerId(partnerId uint) {
 	graylogObject.PartnerId = partnerId
 }
 
-func SetGlobalId(globalId string) {
+func SetGlobalId(globalId interface{}) {
 	graylogObject.GlobalId = globalId
 }
 
